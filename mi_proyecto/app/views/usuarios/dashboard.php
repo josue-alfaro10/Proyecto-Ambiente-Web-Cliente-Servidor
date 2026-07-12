@@ -24,7 +24,7 @@ $mascotasRecientes = $mascotasRecientes ?? [];
 
     <div class="stats-grid">
         <div class="stat-card">
-            <span class="stat-icon">🐾</span>
+            <span class="stat-icon"></span>
             <div>
                 <span class="stat-number"><?= (int)$totalMascotas ?></span>
                 <span class="stat-label"><?= $rolActual === 'admin' ? 'Mascotas en el sistema' : 'Mascotas publicadas' ?></span>

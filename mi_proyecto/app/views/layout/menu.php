@@ -9,7 +9,7 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
 <nav class="pf-navbar">
     <div class="pf-navbar-inner">
         <a href="/mi_proyecto/app/views/usuarios/dashboard.php" class="pf-brand">
-            <span class="pf-brand-icon">🐾</span> PawFinder
+            <span class="pf-brand-icon"></span> PawFinder
         </a>
 
         <button class="pf-navbar-toggle" type="button" aria-label="Abrir menú" onclick="document.querySelector('.pf-navbar-links').classList.toggle('open')">
