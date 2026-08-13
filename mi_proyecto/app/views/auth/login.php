@@ -15,7 +15,9 @@
             <p class="subtitle">Ingresá tus datos para continuar.</p>
 
 
-            <form action="/mi_proyecto/app/views/usuarios/dashboard.php" method="POST">
+            <form action="/mi_proyecto/app/controllers/AuthController.php" method="POST">
+                <input type="hidden" name="accion" value="login">
+
                 <div class="mb-3">
                     <label for="email" class="form-label">Correo electrónico</label>
                     <input type="email" class="form-control" id="email" name="email" required>

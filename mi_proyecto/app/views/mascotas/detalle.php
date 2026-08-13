@@ -1,24 +1,11 @@
 <?php
 require_once __DIR__ . '/../layout/header.php';
 require_once __DIR__ . '/../layout/menu.php';
-
-$mascota = [
-    "nombre" => "Max",
-    "especie" => "Perro",
-    "raza" => "Labrador",
-    "edad" => "2 años",
-    "sexo" => "Macho",
-    "tamano" => "Grande",
-    "ubicacion" => "Heredia",
-    "estado" => "Disponible",
-    "descripcion" => "Max es un perro muy cariñoso, juguetón y sociable. Le encanta salir a caminar y convivir con personas y otros animales. Busca una familia que pueda brindarle mucho amor y un hogar definitivo.",
-    "imagen" => "/mi_proyecto/public/img/placeholder-mascota.jpg"
-];
 ?>
 
 <div class="page-wrapper">
 
-    <a href="/mi_proyecto/app/views/mascotas/catalogo.php" class="back-link">
+    <a href="/mi_proyecto/app/controllers/MascotaController.php?accion=catalogo" class="back-link">
         ← Volver al catálogo
     </a>
 
@@ -57,30 +44,38 @@ $mascota = [
                 <?= $mascota["descripcion"] ?>
             </p>
 
-            <form class="pet-detail-form">
+            <?php if ($mascota["estado"] === "Disponible"): ?>
+                <form class="pet-detail-form" action="/mi_proyecto/app/controllers/SolicitudController.php" method="POST">
+                    <input type="hidden" name="accion" value="crear">
+                    <input type="hidden" name="id_mascota" value="<?= (int)$mascota["id"] ?>">
 
-                <div class="mb-3">
+                    <div class="mb-3">
 
-                    <label class="form-label">
-                        ¿Por qué deseas adoptar esta mascota?
-                    </label>
+                        <label class="form-label">
+                            ¿Por qué deseas adoptar esta mascota?
+                        </label>
 
-                    <textarea
-                        class="form-control"
-                        rows="5"
-                        placeholder="Escribí aquí tu mensaje..."></textarea>
+                        <textarea
+                            class="form-control"
+                            name="mensaje"
+                            rows="5"
+                            placeholder="Escribí aquí tu mensaje..."
+                            required></textarea>
 
-                </div>
+                    </div>
 
-                <button
-                    type="submit"
-                    class="btn btn-pawfinder">
+                    <button
+                        type="submit"
+                        class="btn btn-pawfinder">
 
-                    Enviar solicitud de adopción
+                        Enviar solicitud de adopción
 
-                </button>
+                    </button>
 
-            </form>
+                </form>
+            <?php else: ?>
+                <p class="empty-state">Esta mascota ya no está disponible para adopción.</p>
+            <?php endif; ?>
 
         </div>
 

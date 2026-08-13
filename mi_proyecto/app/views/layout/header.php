@@ -24,3 +24,17 @@ if (session_status() == PHP_SESSION_NONE) {
 </head>
 
 <body>
+
+<?php if (!empty($_SESSION['error'])): ?>
+    <div class="alert alert-danger m-3" role="alert">
+        <?= htmlspecialchars($_SESSION['error']) ?>
+    </div>
+    <?php unset($_SESSION['error']); ?>
+<?php endif; ?>
+
+<?php if (!empty($_SESSION['exito'])): ?>
+    <div class="alert alert-success m-3" role="alert">
+        <?= htmlspecialchars($_SESSION['exito']) ?>
+    </div>
+    <?php unset($_SESSION['exito']); ?>
+<?php endif; ?>

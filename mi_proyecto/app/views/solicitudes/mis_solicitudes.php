@@ -2,33 +2,7 @@
 require_once __DIR__ . '/../layout/header.php';
 require_once __DIR__ . '/../layout/menu.php';
 
-$solicitudes = [
-
-    [
-        "mascota" => "Max",
-        "imagen" => "/mi_proyecto/public/img/placeholder-mascota.jpg",
-        "mensaje" => "Me gustaría adoptar a Max porque tengo experiencia cuidando perros.",
-        "fecha" => "10/07/2026",
-        "estado" => "Pendiente"
-    ],
-
-    [
-        "mascota" => "Luna",
-        "imagen" => "/mi_proyecto/public/img/placeholder-mascota.jpg",
-        "mensaje" => "Tengo un hogar amplio y mucho tiempo para cuidarla.",
-        "fecha" => "05/07/2026",
-        "estado" => "Aprobada"
-    ],
-
-    [
-        "mascota" => "Rocky",
-        "imagen" => "/mi_proyecto/public/img/placeholder-mascota.jpg",
-        "mensaje" => "Siempre he querido adoptar un pastor alemán.",
-        "fecha" => "28/06/2026",
-        "estado" => "Rechazada"
-    ]
-
-];
+$solicitudes = $solicitudes ?? [];
 ?>
 
 <div class="page-wrapper">

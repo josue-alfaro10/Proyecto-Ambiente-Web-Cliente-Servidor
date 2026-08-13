@@ -2,33 +2,7 @@
 require_once __DIR__ . '/../layout/header.php';
 require_once __DIR__ . '/../layout/menu.php';
 
-$solicitudes = [
-
-    [
-        "mascota" => "Max",
-        "imagen" => "/mi_proyecto/public/img/placeholder-mascota.jpg",
-        "mensaje" => "Me gustaría adoptar a Max porque tengo experiencia cuidando perros.",
-        "fecha" => "10/07/2026",
-        "estado" => "Pendiente"
-    ],
-
-    [
-        "mascota" => "Luna",
-        "imagen" => "/mi_proyecto/public/img/placeholder-mascota.jpg",
-        "mensaje" => "Tengo un hogar amplio y mucho tiempo para cuidarla.",
-        "fecha" => "05/07/2026",
-        "estado" => "Aprobada"
-    ],
-
-    [
-        "mascota" => "Rocky",
-        "imagen" => "/mi_proyecto/public/img/placeholder-mascota.jpg",
-        "mensaje" => "Siempre he querido adoptar un pastor alemán.",
-        "fecha" => "28/06/2026",
-        "estado" => "Rechazada"
-    ]
-
-];
+$solicitudes = $solicitudes ?? [];
 ?>
 
 <div class="page-wrapper">
@@ -38,15 +12,15 @@ $solicitudes = [
         <div>
 
             <span class="eyebrow-dark">
-                Solicitudes
+                Administración
             </span>
 
             <h1>
-                Mis solicitudes
+                Administrar solicitudes
             </h1>
 
             <p class="page-subtitle">
-                Consultá el estado de las solicitudes de adopción realizadas.
+                Aprobá o rechazá las solicitudes de adopción recibidas.
             </p>
 
         </div>
@@ -55,70 +29,82 @@ $solicitudes = [
 
     <div class="request-list">
 
-        <?php foreach($solicitudes as $solicitud){ ?>
+        <?php if (empty($solicitudes)): ?>
+            <p class="empty-state">Todavía no hay solicitudes registradas.</p>
+        <?php else: ?>
 
-            <div class="request-card">
+            <?php foreach ($solicitudes as $solicitud) { ?>
 
-                <div class="request-card-img"
-                    style="background-image:url('<?php echo $solicitud["imagen"]; ?>')">
-                </div>
+                <div class="request-card">
 
-                <div class="request-card-body">
+                    <div class="request-card-img"
+                        style="background-image:url('<?php echo htmlspecialchars($solicitud["imagen"] ?? '/mi_proyecto/public/img/placeholder-mascota.jpg'); ?>')">
+                    </div>
 
-                    <h3>
-                        <?php echo $solicitud["mascota"]; ?>
-                    </h3>
+                    <div class="request-card-body">
 
-                    <p class="request-msg">
-                        "<?php echo $solicitud["mensaje"]; ?>"
-                    </p>
+                        <h3>
+                            <?php echo htmlspecialchars($solicitud["mascota"]); ?>
+                        </h3>
 
-                    <span class="request-date">
-                        Fecha de solicitud:
-                        <?php echo $solicitud["fecha"]; ?>
-                    </span>
+                        <p class="request-msg">
+                            "<?php echo htmlspecialchars($solicitud["mensaje"]); ?>"
+                        </p>
 
-                </div>
-
-                <div>
-
-                    <?php
-                    if($solicitud["estado"]=="Pendiente"){
-                    ?>
-
-                        <span class="pet-badge pet-badge-pendiente">
-                            Pendiente
+                        <span class="request-date">
+                            Solicitante: <?php echo htmlspecialchars($solicitud["solicitante"]); ?>
+                            · <?php echo htmlspecialchars(date("d/m/Y", strtotime($solicitud["fecha"]))); ?>
                         </span>
 
-                    <?php
-                    }
+                    </div>
 
-                    if($solicitud["estado"]=="Aprobada"){
-                    ?>
+                    <div class="pf-table-actions">
 
-                        <span class="pet-badge pet-badge-aprobada">
-                            Aprobada
-                        </span>
+                        <?php if ($solicitud["estado"] == "Pendiente") { ?>
 
-                    <?php
-                    }
+                            <span class="pet-badge pet-badge-pendiente">
+                                Pendiente
+                            </span>
 
-                    if($solicitud["estado"]=="Rechazada"){
-                    ?>
+                            <a
+                                href="/mi_proyecto/app/controllers/SolicitudController.php?accion=aprobar&id=<?= (int)$solicitud["id_solicitud"] ?>"
+                                class="pf-action-link"
+                                onclick="return confirm('¿Aprobar esta solicitud? La mascota quedará marcada como adoptada.');">
 
-                        <span class="pet-badge pet-badge-rechazada">
-                            Rechazada
-                        </span>
+                                Aprobar
 
-                    <?php
-                    }
-                    ?>
+                            </a>
+
+                            <a
+                                href="/mi_proyecto/app/controllers/SolicitudController.php?accion=rechazar&id=<?= (int)$solicitud["id_solicitud"] ?>"
+                                class="pf-action-link pf-action-danger"
+                                onclick="return confirm('¿Rechazar esta solicitud?');">
+
+                                Rechazar
+
+                            </a>
+
+                        <?php } elseif ($solicitud["estado"] == "Aprobada") { ?>
+
+                            <span class="pet-badge pet-badge-aprobada">
+                                Aprobada
+                            </span>
+
+                        <?php } elseif ($solicitud["estado"] == "Rechazada") { ?>
+
+                            <span class="pet-badge pet-badge-rechazada">
+                                Rechazada
+                            </span>
+
+                        <?php } ?>
+
+                    </div>
 
                 </div>
 
-            </div>
+            <?php } ?>
 
-        <?php } ?>
+        <?php endif; ?>
 
     </div>
 

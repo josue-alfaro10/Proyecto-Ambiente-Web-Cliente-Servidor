@@ -15,7 +15,7 @@ class Database
         try {
 
             $this->conexion = new PDO(
-                "mysql:host=" . $this->host . ";dbname=" . $this->dbname,
+                "mysql:host=" . $this->host . ";dbname=" . $this->dbname . ";charset=utf8mb4",
                 $this->usuario,
                 $this->password
             );

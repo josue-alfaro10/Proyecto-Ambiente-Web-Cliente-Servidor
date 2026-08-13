@@ -2,33 +2,7 @@
 require_once __DIR__ . '/../layout/header.php';
 require_once __DIR__ . '/../layout/menu.php';
 
-$mascotas = [
-
-    [
-        "id" => 1,
-        "nombre" => "Max",
-        "especie" => "Perro",
-        "raza" => "Labrador",
-        "estado" => "Disponible"
-    ],
-
-    [
-        "id" => 2,
-        "nombre" => "Luna",
-        "especie" => "Gato",
-        "raza" => "Siamés",
-        "estado" => "Adoptada"
-    ],
-
-    [
-        "id" => 3,
-        "nombre" => "Rocky",
-        "especie" => "Perro",
-        "raza" => "Pastor Alemán",
-        "estado" => "Disponible"
-    ]
-
-];
+$mascotas = $mascotas ?? [];
 ?>
 
 <div class="page-wrapper">
@@ -51,7 +25,7 @@ $mascotas = [
 
         </div>
 
-        <a href="/mi_proyecto/app/views/mascotas/agregar.php"
+        <a href="/mi_proyecto/app/controllers/MascotaController.php?accion=agregar"
             class="btn btn-pawfinder btn-inline">
 
             Nueva mascota
@@ -130,7 +104,7 @@ $mascotas = [
                             <div class="pf-table-actions">
 
                                 <a
-                                    href="/mi_proyecto/app/views/mascotas/editar.php"
+                                    href="/mi_proyecto/app/controllers/MascotaController.php?accion=editar&id=<?= (int)$mascota["id"] ?>"
                                     class="pf-action-link">
 
                                     Editar
@@ -138,8 +112,9 @@ $mascotas = [
                                 </a>
 
                                 <a
-                                    href="#"
-                                    class="pf-action-link pf-action-danger">
+                                    href="/mi_proyecto/app/controllers/MascotaController.php?accion=eliminar&id=<?= (int)$mascota["id"] ?>"
+                                    class="pf-action-link pf-action-danger"
+                                    onclick="return confirm('¿Seguro que deseas eliminar esta mascota?');">
 
                                     Eliminar
 

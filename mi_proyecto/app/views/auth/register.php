@@ -14,7 +14,7 @@
             <h2>Crear cuenta</h2>
             <p class="subtitle">Completá tus datos para empezar.</p>
 
-            <form action="/mi_proyecto/app/views/usuarios/dashboard.php" method="POST">
+            <form action="/mi_proyecto/app/controllers/AuthController.php" method="POST">
                 <input type="hidden" name="accion" value="registro">
 
                 <div class="mb-3">

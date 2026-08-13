@@ -15,7 +15,7 @@
             <p class="subtitle">Te enviaremos un enlace de recuperación.</p>
 
 
-            <form action="/mi_proyecto/app/views/auth/login.php" method="POST">
+            <form action="/mi_proyecto/app/controllers/AuthController.php" method="POST">
                 <input type="hidden" name="accion" value="recuperar">
 
                 <div class="mb-3">

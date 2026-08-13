@@ -22,7 +22,7 @@ $usuario = $usuario ?? [
 
     <div class="pf-form-card">
 
-        <form action="/mi_proyecto/app/views/usuarios/perfil.php" method="POST">
+        <form action="/mi_proyecto/app/controllers/UsuarioController.php" method="POST">
             <input type="hidden" name="accion" value="actualizar_perfil">
 
             <div class="mb-3">

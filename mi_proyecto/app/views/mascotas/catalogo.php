@@ -22,7 +22,9 @@ $filtroLugar = $filtroLugar ?? '';
     En esta parte vamso a filtrar 
     por el tipo de especie que queremos ya sean perros, gatos o otros
      -->
-    <form method="GET" class="filter-bar">
+    <form method="GET" action="/mi_proyecto/app/controllers/MascotaController.php" class="filter-bar">
+        <input type="hidden" name="accion" value="catalogo">
+
         <select name="especie" class="form-select">
             <option value="">Todas las especies</option>
             <option value="perro" <?= $filtroEspecie === 'perro' ? 'selected' : '' ?>>Perro</option>
@@ -35,7 +37,7 @@ $filtroLugar = $filtroLugar ?? '';
     por el size del animal 
     -->
 
-        <select name="tamaño" class="form-select">
+        <select name="tamano" class="form-select">
             <option value="">Cualquier tamaño</option>
             <option value="pequeno" <?= $filtroTamano === 'pequeno' ? 'selected' : '' ?>>Pequeño</option>
             <option value="mediano" <?= $filtroTamano === 'mediano' ? 'selected' : '' ?>>Mediano</option>
@@ -69,7 +71,7 @@ $filtroLugar = $filtroLugar ?? '';
             <p class="empty-state">No hay mascotas disponibles con esos filtros.</p>
         <?php else: ?>
             <?php foreach ($mascotas as $mascota): ?>
-                <a href="/mi_proyecto/app/views/mascotas/detalle.php?id=<?= (int)$mascota['id'] ?>" class="pet-card">
+                <a href="/mi_proyecto/app/controllers/MascotaController.php?accion=detalle&id=<?= (int)$mascota['id'] ?>" class="pet-card">
                     <div class="pet-card-img" style="background-image: url('<?= htmlspecialchars($mascota['imagen'] ?? '/mi_proyecto/public/img/placeholder-mascota.jpg') ?>')"></div>
                     <span class="pet-badge pet-badge-<?= htmlspecialchars($mascota['estado'] ?? 'disponible') ?>">
                         <?= htmlspecialchars(ucfirst($mascota['estado'] ?? 'disponible')) ?>

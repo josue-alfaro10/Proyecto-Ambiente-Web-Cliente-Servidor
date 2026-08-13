@@ -1,23 +1,11 @@
 <?php
 require_once __DIR__ . '/../layout/header.php';
 require_once __DIR__ . '/../layout/menu.php';
-
-$mascota = [
-    "nombre" => "Max",
-    "especie" => "perro",
-    "raza" => "Labrador",
-    "edad" => "2 años",
-    "sexo" => "macho",
-    "tamano" => "grande",
-    "ubicacion" => "heredia",
-    "descripcion" => "Max es un perro muy cariñoso y juguetón.",
-    "imagen" => "/mi_proyecto/public/img/placeholder-mascota.jpg"
-];
 ?>
 
 <div class="page-wrapper page-wrapper-narrow">
 
-    <a href="/mi_proyecto/app/views/mascotas/administrar.php" class="back-link">
+    <a href="/mi_proyecto/app/controllers/MascotaController.php?accion=administrar" class="back-link">
         ← Volver a administrar mascotas
     </a>
 
@@ -33,9 +21,10 @@ $mascota = [
 
     <div class="pf-form-card">
 
-        <form action="/mi_proyecto/app/views/mascotas/administrar.php" method="POST" enctype="multipart/form-data">
+        <form action="/mi_proyecto/app/controllers/MascotaController.php" method="POST" enctype="multipart/form-data">
 
             <input type="hidden" name="accion" value="editar">
+            <input type="hidden" name="id" value="<?= (int)$mascota["id"] ?>">
 
             <div class="mb-3">
                 <label class="form-label">Nombre</label>
@@ -186,7 +175,7 @@ $mascota = [
                 </button>
 
                 <a
-                    href="/mi_proyecto/app/views/mascotas/administrar.php"
+                    href="/mi_proyecto/app/controllers/MascotaController.php?accion=administrar"
                     class="btn btn-outline-pf">
 
                     Cancelar

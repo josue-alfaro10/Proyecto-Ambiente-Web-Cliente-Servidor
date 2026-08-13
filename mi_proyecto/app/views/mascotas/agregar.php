@@ -15,7 +15,7 @@ require_once __DIR__ . '/../layout/menu.php';
 
     <div class="pf-form-card">
 
-        <form action="/mi_proyecto/app/views/mascotas/administrar.php" method="POST" enctype="multipart/form-data">
+        <form action="/mi_proyecto/app/controllers/MascotaController.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="accion" value="crear">
 
             <div class="mb-3">

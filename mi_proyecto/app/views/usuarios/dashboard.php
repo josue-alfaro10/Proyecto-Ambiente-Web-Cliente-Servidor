@@ -18,7 +18,7 @@ $mascotasRecientes = $mascotasRecientes ?? [];
             <p class="page-subtitle">Este es el resumen de tu actividad en PawFinder.</p>
         </div>
         <?php if ($rolActual !== 'admin'): ?>
-            <a href="/mi_proyecto/app/views/mascotas/agregar.php" class="btn btn-pawfinder btn-inline">+ Publicar mascota</a>
+            <a href="/mi_proyecto/app/controllers/MascotaController.php?accion=agregar" class="btn btn-pawfinder btn-inline">+ Publicar mascota</a>
         <?php endif; ?>
     </div>
 
@@ -48,7 +48,7 @@ $mascotasRecientes = $mascotasRecientes ?? [];
 
     <div class="section-title-row">
         <h2>Mascotas recientes</h2>
-        <a href="/mi_proyecto/app/views/mascotas/catalogo.php">Ver catálogo completo →</a>
+        <a href="/mi_proyecto/app/controllers/MascotaController.php?accion=catalogo">Ver catálogo completo →</a>
     </div>
 
     <div class="pet-grid">
@@ -56,7 +56,7 @@ $mascotasRecientes = $mascotasRecientes ?? [];
             <p class="empty-state">Todavía no hay mascotas registradas.</p>
         <?php else: ?>
             <?php foreach ($mascotasRecientes as $mascota): ?>
-                <a href="/mi_proyecto/app/views/mascotas/detalle.php?id=<?= (int)$mascota['id'] ?>" class="pet-card">
+                <a href="/mi_proyecto/app/controllers/MascotaController.php?accion=detalle&id=<?= (int)$mascota['id'] ?>" class="pet-card">
                     <div class="pet-card-img" style="background-image: url('<?= htmlspecialchars($mascota['imagen'] ?? '/mi_proyecto/public/img/placeholder-mascota.jpg') ?>')">
                         <span class="pet-badge pet-badge-<?= htmlspecialchars($mascota['estado'] ?? 'disponible') ?>">
                             <?= htmlspecialchars(ucfirst($mascota['estado'] ?? 'disponible')) ?>
