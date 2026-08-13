@@ -6,7 +6,7 @@
         <span class="eyebrow">PawFinder</span>
         <h1>Sumate a la<br>comunidad rescatista.</h1>
         <p>Creá tu cuenta para publicar mascotas en adopción
-           o encontrar a tu próximo compañero.</p>
+            o encontrar a tu próximo compañero.</p>
     </div>
 
     <div class="login-form-side">
@@ -14,7 +14,7 @@
             <h2>Crear cuenta</h2>
             <p class="subtitle">Completá tus datos para empezar.</p>
 
-            <form action="/mi_proyecto/app/views/usuarios/dashboard.php" method="POST">
+            <form action="/mi_proyecto/app/controllers/AuthController.php" method="POST">
                 <input type="hidden" name="accion" value="registro">
 
                 <div class="mb-3">
@@ -50,7 +50,6 @@
             </form>
         </div>
     </div>
-
 </div>
 
 <?php require_once __DIR__ . '/../layout/footer.php'; ?>

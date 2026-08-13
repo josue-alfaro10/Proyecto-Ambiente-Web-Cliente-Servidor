@@ -1,20 +1,23 @@
 <?php require_once __DIR__ . '/../layout/header.php'; ?>
 
 <div class="login-wrapper">
-
     <div class="login-hero">
         <span class="eyebrow">PawFinder</span>
         <h1>Cada refugio<br>merece ser encontrado.</h1>
         <p>Conectamos rescatistas, refugios y personas que buscan adoptar,
-           en un solo lugar organizado.</p>
+            en un solo lugar organizado.</p>
     </div>
+
 
     <div class="login-form-side">
         <div class="login-card">
             <h2>Iniciar sesión</h2>
             <p class="subtitle">Ingresá tus datos para continuar.</p>
 
-            <form action="/mi_proyecto/app/views/usuarios/dashboard.php" method="POST">
+
+            <form action="/mi_proyecto/app/controllers/AuthController.php" method="POST">
+                <input type="hidden" name="accion" value="login">
+
                 <div class="mb-3">
                     <label for="email" class="form-label">Correo electrónico</label>
                     <input type="email" class="form-control" id="email" name="email" required>

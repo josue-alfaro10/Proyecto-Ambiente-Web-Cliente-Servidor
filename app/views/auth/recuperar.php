@@ -6,7 +6,7 @@
         <span class="eyebrow">PawFinder</span>
         <h1>¿Olvidaste tu<br>contraseña?</h1>
         <p>Ingresá el correo con el que te registraste y te
-           enviaremos instrucciones para recuperar el acceso.</p>
+            enviaremos instrucciones para recuperar el acceso.</p>
     </div>
 
     <div class="login-form-side">
@@ -14,7 +14,8 @@
             <h2>Recuperar contraseña</h2>
             <p class="subtitle">Te enviaremos un enlace de recuperación.</p>
 
-            <form action="/mi_proyecto/app/views/auth/login.php" method="POST">
+
+            <form action="/mi_proyecto/app/controllers/AuthController.php" method="POST">
                 <input type="hidden" name="accion" value="recuperar">
 
                 <div class="mb-3">
