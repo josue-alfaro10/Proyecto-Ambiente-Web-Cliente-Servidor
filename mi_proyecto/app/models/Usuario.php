@@ -98,4 +98,52 @@ class Usuario
 
         return $passwordIngresada === $passwordGuardada;
     }
+    // Genera un token de recuperación y lo guarda con expiración de 1 hora
+    public function crearTokenRecuperacion($email)
+    {
+        $token = bin2hex(random_bytes(32));
+        $expira = date('Y-m-d H:i:s', strtotime('+1 hour'));
+
+        $stmt = $this->conexion->prepare("DELETE FROM password_resets WHERE email = :email");
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+
+        $sql = "INSERT INTO password_resets (email, token, expires_at) VALUES (:email, :token, :expira)";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':token', $token);
+        $stmt->bindParam(':expira', $expira);
+        $stmt->execute();
+
+        return $token;
+    }
+
+    // Valida que el token exista y no haya expirado
+    public function validarTokenRecuperacion($token)
+    {
+        $sql = "SELECT * FROM password_resets WHERE token = :token AND expires_at > NOW()";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->bindParam(':token', $token);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // Borra el token una vez usado
+    public function borrarTokenRecuperacion($token)
+    {
+        $stmt = $this->conexion->prepare("DELETE FROM password_resets WHERE token = :token");
+        $stmt->bindParam(':token', $token);
+        $stmt->execute();
+    }
+
+    // Actualiza la contraseña usando el email (no tenemos sesión activa en este flujo)
+    public function actualizarPasswordPorEmail($email, $passwordHash)
+    {
+        $sql = "UPDATE usuarios SET password = :password WHERE email = :email";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->bindParam(':password', $passwordHash);
+        $stmt->bindParam(':email', $email);
+        return $stmt->execute();
+    }
 }

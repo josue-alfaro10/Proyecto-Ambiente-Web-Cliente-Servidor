@@ -74,19 +74,47 @@ switch ($accion) {
         $email = trim($_POST['email'] ?? '');
         $usuario = $usuarioModelo->buscarPorEmail($email);
 
-        // Alcance introductorio: no se envía correo real, solo se confirma
-        // al usuario que, si el correo existe, recibirá instrucciones.
+        if ($usuario) {
+            $token = $usuarioModelo->crearTokenRecuperacion($email);
+            require_once __DIR__ . '/../helpers/Mailer.php';
+            $mailer = new Mailer();
+            $mailer->enviarCorreoRecuperacion($email, $token);
+        }
+
         $_SESSION['exito'] = 'Si el correo ingresado existe en el sistema, recibirás instrucciones para recuperar tu contraseña.';
+        header('Location: /mi_proyecto/app/views/auth/login.php');
+        exit;
+
+    case 'reset_password':
+        $token = $_POST['token'] ?? '';
+        $password = $_POST['password'] ?? '';
+        $passwordConfirm = $_POST['password_confirm'] ?? '';
+
+        $reset = $usuarioModelo->validarTokenRecuperacion($token);
+
+        if (!$reset) {
+            $_SESSION['error'] = 'El enlace es inválido o ya expiró.';
+            header('Location: /mi_proyecto/app/views/auth/login.php');
+            exit;
+        }
+
+        if ($password === '' || $password !== $passwordConfirm) {
+            $_SESSION['error'] = 'Las contraseñas no coinciden.';
+            header('Location: /mi_proyecto/app/views/auth/reset_password.php?token=' . $token);
+            exit;
+        }
+
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+        $usuarioModelo->actualizarPasswordPorEmail($reset['email'], $passwordHash);
+        $usuarioModelo->borrarTokenRecuperacion($token);
+
+        $_SESSION['exito'] = 'Contraseña actualizada correctamente. Ya podés iniciar sesión.';
         header('Location: /mi_proyecto/app/views/auth/login.php');
         exit;
 
     case 'logout':
         $_SESSION = [];
         session_destroy();
-        header('Location: /mi_proyecto/app/views/auth/login.php');
-        exit;
-
-    default:
         header('Location: /mi_proyecto/app/views/auth/login.php');
         exit;
 }
