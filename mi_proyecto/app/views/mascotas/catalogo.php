@@ -72,23 +72,19 @@ $filtroLugar = $filtroLugar ?? '';
         <?php else: ?>
             <?php foreach ($mascotas as $mascota): ?>
                 <a href="/mi_proyecto/app/controllers/MascotaController.php?accion=detalle&id=<?= (int)$mascota['id'] ?>" class="pet-card">
-                    <div class="pet-card-img" style="background-image: url('<?= htmlspecialchars($mascota['imagen'] ?? '/mi_proyecto/public/img/placeholder-mascota.jpg') ?>')"></div>
-                    <span class="pet-badge pet-badge-<?= htmlspecialchars($mascota['estado'] ?? 'disponible') ?>">
-                        <?= htmlspecialchars(ucfirst($mascota['estado'] ?? 'disponible')) ?>
-                    </span>
-    </div>
-    <div class="pet-card-body">
-        <h3><?= htmlspecialchars($mascota['nombre']) ?></h3>
-        <p><?= htmlspecialchars($mascota['raza'] ?? $mascota['especie'] ?? '') ?></p>
-        <span class="pet-card-meta">
-            <?= htmlspecialchars($mascota['edad'] ?? '') ?> · <?= htmlspecialchars(ucfirst($mascota['tamano'] ?? '')) ?>
-        </span>
-        <span class="pet-card-meta">
-            <?= htmlspecialchars($mascota['lugar'] ?? '') ?> · <?= htmlspecialchars(ucfirst($mascota['ubicacion'] ?? '')) ?>
-        </span>
-    </div>
-    </a>
-<?php endforeach; ?>
+                    <div class="pet-card-inner">
+                        <div class="pet-card-img" style="background-image: url('<?= htmlspecialchars($mascota['imagen'] ?? '/mi_proyecto/public/img/placeholder-mascota.jpg') ?>')">
+                            <span class="pet-badge pet-badge-<?= htmlspecialchars($mascota['estado'] ?? 'disponible') ?>">
+                                <?= htmlspecialchars(ucfirst($mascota['estado'] ?? 'disponible')) ?>
+                            </span>
+                        </div>
+                        <div class="pet-card-body">
+                            <h3><?= htmlspecialchars($mascota['nombre']) ?></h3>
+                            <p><?= htmlspecialchars($mascota['especie'] ?? $mascota['raza'] ?? '') ?></p>
+                        </div>
+                    </div>
+                </a>
+            <?php endforeach; ?>
 <?php endif; ?>
 </div>
 
