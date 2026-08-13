@@ -20,7 +20,8 @@ if (session_status() == PHP_SESSION_NONE) {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- CSS del proyecto -->
-    <link rel="stylesheet" href="/mi_proyecto/public/css/styles.css">
+    <?php $cssVersion = @filemtime(__DIR__ . '/../../../public/css/styles.css') ?: time(); ?>
+    <link rel="stylesheet" href="/mi_proyecto/public/css/styles.css?v=<?= $cssVersion ?>">
 </head>
 
 <body>
